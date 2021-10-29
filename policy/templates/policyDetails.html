@@ -1,0 +1,234 @@
+ {% extends 'base.html' %}
+
+ {% block content %}
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Policy Details</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="project" width="100%" cellspacing="0">
+                        <tr>
+                            <td>Policy Number</td>
+                            <td>{{ policy.Number }}</td>
+                            <td>Product</td>
+                            <td>{{policy.Name}}</td>
+                        </tr>
+                        <tr>
+                            <td>Client</td>
+                            <td colspan="3">{{policy.First_Name}} {{policy.Last_Name}}</td>
+                        </tr>
+                        <tr>
+                            <td>Total Cover</td>
+                            <td>{{policy.Cover}}</td>
+                            <td>Status</td>
+                            <td>{{policy.Status}}</td>
+                        </tr>
+                    </table>
+                    {% if userid != policy.CreatedBy_id and policy.Status == 'Un-finalised'%}
+                    <button class="btn btn-primary" onclick="location.href='/policy/approve/{{policy.id}}';">Approve</button>
+                    <button class="btn btn-danger" onclick="location.href='/policy/decline/{{policy.id}}';">Decline</button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="policy-versions-tab" data-bs-toggle="tab" data-bs-target="#policy-versions"
+                        type="button" role="tab" aria-controls="policy-versions" aria-selected="false">Policy Versions</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="members-tab" data-bs-toggle="tab" data-bs-target="#members"
+                        type="button" role="tab" aria-controls="members" aria-selected="true">Members</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="ledger-tab" data-bs-toggle="tab" data-bs-target="#ledger" type="button"
+                        role="tab" aria-controls="ledger" aria-selected="false">Ledger</button>
+              </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+              <div class="tab-pane fade show active" id="policy-versions" role="tabpanel" aria-labelledby="policy-versions-tab">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Version Number</th>
+                                            <th>Effective Date From</th>
+                                            <th>Effective Date To</th>
+                                            <th>Endorsement Type</th>
+                                            <th>Status</th>
+                                            <th>View</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Version Number</th>
+                                            <th>Effective Date From</th>
+                                            <th>Effective Date To</th>
+                                            <th>Endorsement Type</th>
+                                            <th>Status</th>
+                                            <th>View</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        {% for policy_version in policy_versions %}
+                                        <tr>
+                                            <td>
+                                                {{ policy_version.Version_Number }}
+                                            </td>
+                                            <td>
+                                                {{ policy_version.EffectiveDateFrom }}
+                                            </td>
+                                            <td>
+                                                {{ policy_version.EffectiveDateTo }}
+                                            </td>
+                                            <td>
+                                                {{ policy_version.EndorsementType }}
+                                            </td>
+                                            <td>
+                                                {{ policy_version.Status }}
+                                            </td>
+                                            <td>
+                                                <a href="/policy/policy_details/{{policy_version.id}}" class="btn btn-info btn-circle btn-sm">
+                                                    <i class="fas fa-info-circle"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+              </div>
+              <div class="tab-pane fade" id="members" role="tabpanel" aria-labelledby="members-tab">
+                  <div style="margin-top: 5px; margin-right: 20px">
+                      <button class="btn btn-primary" style="float: right;" type="button"
+                              onclick="location.href='/policy/add_member/{{policy.id}}';">Add Member
+                      </button>
+                  </div>
+                  <br/>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="membersTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Member Type</th>
+                                            <th>Title</th>
+                                            <th>First Name</th>
+                                            <th>Last Name</th>
+                                            <th>Premium</th>
+                                            <th>View</th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Member Type</th>
+                                            <th>Title</th>
+                                            <th>First Name</th>
+                                            <th>Last Name</th>
+                                            <th>Premium</th>
+                                            <th>View</th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        {% for member in members %}
+                                        <tr>
+                                            <td>
+                                                {{ member.MemberType }}
+                                            </td>
+                                            <td>
+                                                {{ member.Title }}
+                                            </td>
+                                            <td>
+                                                {{ member.First_Name }}
+                                            </td>
+                                            <td>
+                                                {{ member.Last_Name }}
+                                            </td>
+                                            <td>
+                                                {{ member.Premium }}
+                                            </td>
+                                            <td>
+                                                <a href="/policy/edit_member/{{member.id}}" class="btn btn-info btn-circle btn-sm">
+                                                    <i class="fas fa-info-circle"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+              </div>
+                <div class="tab-pane fade" id="ledger" role="tabpanel" aria-labelledby="ledger-tab">
+                  <div style="margin-top: 5px; margin-right: 20px">
+                      <button class="btn btn-primary" style="float: right;" type="button"
+                              onclick="location.href='/policy/raise_ledger/{{policy.id}}';">Raise Ledger
+                      </button>
+                  </div>
+                  <br/>
+                    <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="LedgerTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                            <th>Transaction Date</th>
+                                            <th>Amount</th>
+                                            <th>Collection Date</th>
+                                            <th>Amount Paid</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Transaction Date</th>
+                                            <th>Amount</th>
+                                            <th>Collection Date</th>
+                                            <th>Amount Paid</th>
+                                            <th></th>
+                                        </tr>
+                                    </tfoot>
+                                    <tbody>
+                                        {% for ledger in ledgers %}
+                                        <tr>
+                                            <td>
+                                                {{ ledger.TransactionDate }}
+                                            </td>
+                                            <td>
+                                                {{ ledger.Amount }}
+                                            </td>
+                                            <td>
+                                                {{ ledger.CollectionDate }}
+                                            </td>
+                                            <td>
+                                                {{ ledger.AmountPaid }}
+                                            </td>
+                                            <td>
+                                                {% if ledger.AmountPaid is none or  ledger.AmountPaid < ledger.Amount %}
+                                                <a href="/accounts/add_payment/{{ledger.id}}" class="btn btn-primary">
+                                                    Add Payment
+                                                </a>
+                                                {% endif %}
+                                            </td>
+                                        </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <!-- /.container-fluid -->
+ {% endblock %}

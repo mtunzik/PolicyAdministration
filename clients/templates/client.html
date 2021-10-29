@@ -1,0 +1,31 @@
+ {% extends 'base.html' %}
+
+ {% block content %}
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <h1 class="h3 mb-2 text-gray-800">Clients</h1>
+
+        <div class="col-xl-8">
+            <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Client Information</h6>
+            </div>
+            <div class="card-body">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div class="form-group">
+                            <label class="small mb-1" for="{{ field.id_for_label }}">{{ field.label}}</label>
+                            {{ field }}
+                        </div>
+                    {% endfor %}
+                    <button class="btn btn-primary" type="submit">Save changes</button>
+                </form>
+            </div>
+        </div>
+        </div>
+    </div>
+    <!-- /.container-fluid -->
+ {% endblock %}

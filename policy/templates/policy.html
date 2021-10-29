@@ -1,0 +1,68 @@
+ {% extends 'base.html' %}
+
+ {% block content %}
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+
+        <!-- DataTales Example -->
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Policies</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Policy Number</th>
+                                <th>Client</th>
+                                <th>Product</th>
+                                <th>Cover</th>
+                                <th>Status</th>
+                                <th>View</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Policy Number</th>
+                                <th>Client</th>
+                                <th>Product</th>
+                                <th>Cover</th>
+                                <th>Status</th>
+                                <th>View</th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            {% for policy in policies %}
+                            <tr>
+                                <td>
+                                    {{ policy.Number}}
+                                </td>
+                                <td>
+                                    {{policy.First_Name}} {{policy.Last_Name}}
+                                </td>
+                                <td>
+                                    {{ policy.Name}}
+                                </td>
+                                <td>
+                                    {{ policy.Cover }}
+                                </td>
+                                <td>
+                                    {{ policy.Status}}
+                                </td>
+                                <td>
+                                    <a href="/policy/policy_details/{{policy.id}}" class="btn btn-info btn-circle btn-sm">
+                                        <i class="fas fa-info-circle"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- /.container-fluid -->
+ {% endblock %}

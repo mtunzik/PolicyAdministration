@@ -1,0 +1,33 @@
+ {% extends 'base.html' %}
+
+ {% block content %}
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <div class="col-xl-8">
+            <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Record Payment</h6>
+            </div>
+            <div class="card-body">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div class="form-group">
+                            <label class="small mb-1" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                            {{ field }}
+                        </div>
+                    {% endfor %}
+                    <button class="btn btn-primary" type="submit">Add Payment</button>
+                    <div>
+                        {% for message in messages%}
+                        <p>{{message}}</p>
+                        {% endfor %}
+                    </div>
+                </form>
+            </div>
+        </div>
+        </div>
+    </div>
+  {% endblock %}

@@ -1,0 +1,74 @@
+ {% extends 'base.html' %}
+
+ {% block content %}
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+
+        <!-- Page Heading -->
+        <div class="col-xl-8">
+            <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Policy Details</h6>
+            </div>
+            <div class="card-body">
+                <form action="" method="POST">
+                    {% csrf_token %}
+                    {% for field in form %}
+                        <div class="form-group">
+                            <label class="small mb-1" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                            {{ field }}
+                        </div>
+                    {% endfor %}
+                    <button class="btn btn-primary" type="submit">Add Policy</button>
+                    <div>
+                        {% for message in messages%}
+                        <p>{{message}}</p>
+                        {% endfor %}
+                    </div>
+                </form>
+            </div>
+        </div>
+        </div>
+    </div>
+
+  <script>
+    $("#id_Product option[value='3']").remove();
+    $("#id_Product").change(function(){
+            if($(this).val() == 1 || $(this).val() == 2){
+                $('#id_Cover').empty();
+                $('#id_Cover').append(new Option('---------', ''));
+                $('#id_Cover').append(new Option('Option 1: R 5,000', 'Option 1: R 5,000'));
+                $('#id_Cover').append(new Option('Option 2: R 10,000', 'Option 2: R 10,000'));
+                $('#id_Cover').append(new Option('Price Per R 1,000', 'Price Per R 1,000'));
+            }
+            if($(this).val() == 4 || $(this).val() == 5){
+                $('#id_Cover').empty();
+                $('#id_Cover').append(new Option('---------', ''));
+                $('#id_Cover').append(new Option('6 Members', '6 Members'));
+                $('#id_Cover').append(new Option('8 Members', '8 Members'));
+                $('#id_Cover').append(new Option('10 Members', '10 Members'));
+                $("#id_CoverAmount").val('');
+                $("#id_CoverAmount").attr('readonly', true);
+            }
+        });
+
+    $("#id_Cover").change(function(){
+            if($(this).val() == 'Price Per R 1,000'){
+                $("#id_CoverAmount").val('1000');
+                $("#id_CoverAmount").attr('readonly', false);
+            }
+            else{
+                $("#id_CoverAmount").attr('readonly', true);
+                if($(this).val() == 'Option 1: R 5,000'){
+                    $("#id_CoverAmount").val('5000');
+                }
+                if($(this).val() == 'Option 2: R 10,000'){
+                    $("#id_CoverAmount").val('10000');
+                }
+            }
+        });
+
+ </script>
+    <!-- /.container-fluid -->
+ {% endblock %}
+

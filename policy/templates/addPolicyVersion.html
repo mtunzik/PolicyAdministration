@@ -1,0 +1,37 @@
+ {% extends 'base.html' %}
+
+ {% block content %}
+    <!-- Begin Page Content -->
+
+ <!-- Page Heading -->
+ <div class="col-xl-8">
+     <div class="card shadow mb-4">
+         <div class="card-header py-3">
+             <h6 class="m-0 font-weight-bold text-primary">Edit Policy</h6>
+         </div>
+         <div class="card-body">
+             <form action="" method="POST" >
+                 {% csrf_token %}
+
+                    {% for field in form %}
+                 <div class="form-group">
+                     <label class="small mb-1" for="{{ field.id_for_label }}">{{ field.label}}</label>
+                     {{ field }}
+                     {% for error in field.errors %}
+                          <div class="alert alert-danger">
+                               <strong>{{ error|escape }}</strong>
+                          </div>
+                    {% endfor %}
+                 </div>
+                 {% endfor %}
+                 <button class="btn btn-primary" type="submit">Edit Policy</button>
+                     <div>
+
+                     </div>
+             </form>
+         </div>
+     </div>
+ </div>
+
+ <!-- /.container-fluid -->
+ {% endblock %}
