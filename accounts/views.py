@@ -34,7 +34,6 @@ def add_payment(request, ledger_id):
                 total_amount_paid = PaymentLedger.objects.filter(PolicyLedger_id=ledger_id).aggregate(Sum('Amount'))['Amount__sum']
 
             if total_receipt_amount <= ledger_amount:
-                print(total_amount_paid)
                 if total_amount_paid > 0.00:
                     if total_receipt_amount + total_amount_paid <= ledger_amount:
                         amount_paid = total_receipt_amount
@@ -51,6 +50,7 @@ def add_payment(request, ledger_id):
 
             payment_ledger = PaymentLedger(Amount=amount_paid, Receipt_id=receipt.id, PolicyLedger_id=ledger_id)
             payment_ledger.save()
+            total_receipt_amount = total_receipt_amount - amount_paid
 
             if float(total_receipt_amount) + float(total_amount_paid) > ledger_amount:
                 collection_date = ledger.CollectionDate
@@ -64,8 +64,7 @@ def add_payment(request, ledger_id):
 
                     collection_date = collection_date + relativedelta(months=1)
                     transaction_date = transaction_date + relativedelta(months=1)
-                    print(transaction_date)
-                    print(policy_version_id)
+
                     if not PolicyLedger.objects.filter(TransactionDate=transaction_date,
                                                     PolicyVersion_id=policy_version_id).exists():
                         ledger = PolicyLedger(Amount=ledger_amount, TransactionDate=transaction_date,

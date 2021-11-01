@@ -3,6 +3,18 @@ from .models import Client
 
 
 class AddClient(forms.ModelForm):
+    Telephone = forms.CharField(
+        required=False,
+        label='Telephone',
+        widget=forms.TextInput(attrs={'class': 'form-control'})
+    )
+
+    Email = forms.CharField(
+        required=False,
+        label='Email',
+        widget=forms.EmailInput(attrs={'class': 'form-control'})
+    )
+
     class Meta:
         model = Client
         fields = ['First_Name', 'Last_Name', 'Gender', 'DateOfBirth', 'ID_Type', 'ID_Number', 'Title', 'Telephone', 'Cell_Number',
@@ -15,9 +27,7 @@ class AddClient(forms.ModelForm):
             'ID_Type': forms.Select(attrs={'class': 'form-control'}),
             'ID_Number': forms.TextInput(attrs={'class': 'form-control'}),
             'Title': forms.TextInput(attrs={'class': 'form-control'}),
-            'Telephone': forms.TextInput(attrs={'class': 'form-control'}),
-            'Cell_Number': forms.TextInput(attrs={'class': 'form-control'}),
-            'Email': forms.EmailInput(attrs={'class': 'form-control'})
+            'Cell_Number': forms.TextInput(attrs={'class': 'form-control'})
         }
         labels = {
             'First_Name': 'First Name',

@@ -170,8 +170,7 @@ def add_member(request, policy_version_id):
 
             member.save()
             return redirect('/policy/policy_details/' + str(policy_version_id))
-        else:
-            print(form.errors)
+
     context = {'form': form}
     return render(request, 'addMember.html', context)
 
@@ -180,7 +179,7 @@ def add_member(request, policy_version_id):
 def edit_member(request, member_id):
     member = PolicyMembers.objects.get(id=member_id)
     form = AddPolicyMembers(instance=member)
-    print(member.Cover)
+
     if request.method == 'POST':
         form = AddPolicyMembers(request.POST, instance=member)
         if form.is_valid():
@@ -225,11 +224,19 @@ def approve(request, policy_version_id):
     policy_version.save()
 
     policy = Policy.objects.get(id=policy_version.Policy_id)
-    collection_date = datetime(timezone.now().date().year, timezone.now().date().month, policy.CollectionDay)
+    transaction_date = policy.InceptionDate
+    collection_date = datetime(policy.InceptionDate.year, policy.InceptionDate.month, policy.CollectionDay)
     amount = PolicyMembers.objects.filter(PolicyVersion_id=policy_version_id).aggregate(Sum('Premium'))['Premium__sum']
-    ledger = PolicyLedger(Amount=amount, TransactionDate=timezone.now().date(), CollectionDate=collection_date.date(),
+    ledger = PolicyLedger(Amount=amount, TransactionDate=transaction_date, CollectionDate=collection_date,
                           PolicyVersion_id=policy_version_id)
     ledger.save()
+
+    while transaction_date < datetime.now().date():
+        transaction_date = transaction_date + relativedelta(months=1)
+        collection_date = collection_date + relativedelta(months=1)
+        ledger = PolicyLedger(Amount=amount, TransactionDate=transaction_date, CollectionDate=collection_date,
+                              PolicyVersion_id=policy_version_id)
+        ledger.save()
 
     return redirect('/policy/policy_details/' + str(policy_version_id))
 
