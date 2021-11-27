@@ -36,21 +36,31 @@ class AddPolicy(forms.ModelForm):
 
 
 class AddPolicyVersion(forms.ModelForm):
+    Cover = forms.CharField(
+        label='Cover',
+        widget=forms.Select(attrs={'class': 'form-control',
+                                   'required': 'true'})
+    )
+
+    CoverAmount = forms.DecimalField(
+        required=False,
+        label='Cover Amount',
+        widget=forms.TextInput(attrs={'class': 'form-control',
+                                      'readonly': 'true'})
+    )
 
     class Meta:
         model = PolicyVersion
-        fields = ['EndorsementType', 'EndorsementReason', 'EffectiveDateFrom', 'Description']
+        fields = ['EffectiveDateFrom', 'EndorsementType', 'Description', 'Cover', 'CoverAmount']
         widgets = {
-            'EndorsementType': forms.Select(attrs={'class': 'form-control'}),
-            'EndorsementReason': forms.TextInput(attrs={'class': 'form-control'}),
             'EffectiveDateFrom': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
-            'Description': forms.Textarea(attrs={'class': 'form-control'})
+            'Description': forms.Textarea(attrs={'class': 'form-control'}),
+            'EndorsementType': forms.Select(attrs={'class': 'form-control'})
         }
         labels = {
-            'EndorsementType': 'Endorsement Type',
-            'EndorsementReason': 'Endorsement Reason',
             'EffectiveDateFrom': 'Date Effective From',
-            'Description': 'Comment'
+            'Description': 'Comment',
+            'EndorsementType': 'Endorsement Type'
         }
 
 

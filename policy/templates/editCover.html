@@ -8,7 +8,7 @@
         <div class="col-xl-8">
             <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Policy Details</h6>
+                <h6 class="m-0 font-weight-bold text-primary">Cover Details</h6>
             </div>
             <div class="card-body">
                 <form action="" method="POST">
@@ -19,16 +19,12 @@
                             {{ field }}
                         </div>
                     {% endfor %}
-                    <button class="btn btn-primary" type="submit">Add Policy</button>
-                     <div>
-                        {% if messages %}
-                        <ul>
-                            {% for message in messages %}
-                            <li style="color:red">{{ message }}</li>
-                            {% endfor %}
-                        </ul>
-                        {% endif %}
-                     </div>
+                    <button class="btn btn-primary" type="submit">Edit Cover</button>
+                    <div>
+                        {% for message in messages%}
+                        <p>{{message}}</p>
+                        {% endfor %}
+                    </div>
                 </form>
             </div>
         </div>
@@ -36,7 +32,6 @@
     </div>
 
   <script>
-
     $("#id_Product option[value='3']").remove();
     $("#id_Product").change(function(){
             if($(this).val() == 1 || $(this).val() == 2){

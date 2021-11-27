@@ -5,6 +5,7 @@ from django.contrib import admin
 
 
 admin.site.site_header = "Admin Central"
+admin.site.site_title = "Policy Admin"
 
 urlpatterns = [
     path('', views.index),
@@ -13,6 +14,7 @@ urlpatterns = [
     path('add_member/<str:policy_version_id>/', views.add_member),
     path('edit_policy/<str:policy_version_id>/', views.edit_policy),
     path('edit_member/<str:member_id>/', views.edit_member),
+    path('delete_member/<str:member_id>/', views.delete_member),
     path('approve/<str:policy_version_id>/', views.approve),
     path('decline/<str:policy_version_id>/', views.decline),
     path('raise_ledger/<str:policy_version_id>/', views.raise_ledger)

@@ -29,9 +29,12 @@
                             <td>{{policy.Status}}</td>
                         </tr>
                     </table>
-                    {% if userid != policy.CreatedBy_id and policy.Status == 'Un-finalised'%}
+                    {% if userid != policy.CreatedBy_id and policy.Status == 'Un-finalised' and policy.IsLatest == True %}
                     <button class="btn btn-primary" onclick="location.href='/policy/approve/{{policy.id}}';">Approve</button>
                     <button class="btn btn-danger" onclick="location.href='/policy/decline/{{policy.id}}';">Decline</button>
+                    {% endif %}
+                    {% if policy.Status == 'Finalised' %}
+                    <button class="btn btn-primary" onclick="location.href='/policy/edit_policy/{{policy.id}}';">Edit Policy</button>
                     {% endif %}
                 </div>
             </div>
@@ -110,9 +113,11 @@
               </div>
               <div class="tab-pane fade" id="members" role="tabpanel" aria-labelledby="members-tab">
                   <div style="margin-top: 5px; margin-right: 20px">
+                       {% if policy.Status == 'Un-finalised' and policy.IsLatest == True %}
                       <button class="btn btn-primary" style="float: right;" type="button"
                               onclick="location.href='/policy/add_member/{{policy.id}}';">Add Member
                       </button>
+                      {% endif %}
                   </div>
                   <br/>
                         <div class="card-body">
@@ -170,9 +175,11 @@
               </div>
                 <div class="tab-pane fade" id="ledger" role="tabpanel" aria-labelledby="ledger-tab">
                   <div style="margin-top: 5px; margin-right: 20px">
+                      {% if policy.Status == 'Finalised' %}
                       <button class="btn btn-primary" style="float: right;" type="button"
                               onclick="location.href='/policy/raise_ledger/{{policy.id}}';">Raise Ledger
                       </button>
+                      {% endif %}
                   </div>
                   <br/>
                     <div class="card-body">
@@ -212,10 +219,12 @@
                                                 {{ ledger.AmountPaid }}
                                             </td>
                                             <td>
-                                                {% if ledger.AmountPaid is none or  ledger.AmountPaid < ledger.Amount %}
-                                                <a href="/accounts/add_payment/{{ledger.id}}" class="btn btn-primary">
-                                                    Add Payment
-                                                </a>
+                                                {% if  ledger.AmountPaid is none or  ledger.AmountPaid < ledger.Amount  %}
+                                                    {% if policy.Status == 'Finalised' %}
+                                                    <a href="/accounts/add_payment/{{ledger.id}}" class="btn btn-primary">
+                                                        Add Payment
+                                                    </a>
+                                                    {% endif %}
                                                 {% endif %}
                                             </td>
                                         </tr>

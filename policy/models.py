@@ -19,7 +19,8 @@ class PolicyVersion(models.Model):
     ENDORSEMENT_TYPE = (
         ('Inception', 'Inception'),
         ('Internal', 'Internal'),
-        ('Endorsement', 'Endorsement')
+        ('Endorsement', 'Endorsement'),
+        ('Cancellation', 'Cancellation')
     )
     STATUS = (
         ('Un-finalised', 'Un-finalised'),
@@ -65,7 +66,7 @@ class PolicyMembers(models.Model):
     )
 
     MEMBER_TYPE = (
-        ('Maim Member', 'Maim Member'),
+        ('Main Member', 'Main Member'),
         ('Spouse', 'Spouse'),
         ('Child', 'Child'),
         ('Adult Dependent', 'Adult Dependent')

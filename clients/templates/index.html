@@ -21,7 +21,6 @@
                                 <th>Last Name</th>
                                 <th>Gender</th>
                                 <th>View</th>
-                                <th>Delete</th>
                             </tr>
                         </thead>
                         <tfoot>
@@ -30,7 +29,6 @@
                                 <th>Last Name</th>
                                 <th>Gender</th>
                                 <th>View</th>
-                                <th>Delete</th>
                             </tr>
                         </tfoot>
                         <tbody>
@@ -50,11 +48,7 @@
                                         <i class="fas fa-info-circle"></i>
                                     </a>
                                 </td>
-                                <td>
-                                    <a id="DeleteClient" href="/clients/delete/{{client.id}}" class="btn btn-danger btn-circle btn-sm" data-toggle="modal" data-target="#ClientDeleteModal" >
-                                        <i class="fas fa-trash"></i>
-                                    </a>
-                                </td>
+
                             </tr>
                             {% endfor %}
                         </tbody>

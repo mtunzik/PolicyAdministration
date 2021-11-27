@@ -26,12 +26,61 @@
                  {% endfor %}
                  <button class="btn btn-primary" type="submit">Edit Policy</button>
                      <div>
-
+                        {% if messages %}
+                        <ul>
+                            {% for message in messages %}
+                            <li style="color:red">{{ message }}</li>
+                            {% endfor %}
+                        </ul>
+                        {% endif %}
                      </div>
              </form>
          </div>
      </div>
  </div>
+ <script>
 
- <!-- /.container-fluid -->
+    $("#id_EffectiveDateFrom").val('');
+    $("#id_Description").val('');
+    $("#id_EndorsementType").val('Endorsement');
+    if('{{ form.Cover.value }}' == 'Option 1: R 5,000' || '{{ form.Cover.value }}' == 'Option 2: R 10,000' || '{{ form.Cover.value }}' == 'Price Per R 1,000'){
+        $('#id_Cover').empty();
+        $('#id_Cover').append(new Option('---------', ''));
+        $('#id_Cover').append(new Option('Option 1: R 5,000', 'Option 1: R 5,000'));
+        $('#id_Cover').append(new Option('Option 2: R 10,000', 'Option 2: R 10,000'));
+        $('#id_Cover').append(new Option('Price Per R 1,000', 'Price Per R 1,000'));
+        $('#id_Cover').val('{{ form.Cover.value }}');
+    }
+
+    if('{{ form.Cover.value }}' == '6 Members' || '{{ form.Cover.value }}' == '8 Members' || '{{ form.Cover.value }}' == '10 Members'){
+        $('#id_Cover').empty();
+        $('#id_Cover').append(new Option('---------', ''));
+        $('#id_Cover').append(new Option('6 Members', '6 Members'));
+        $('#id_Cover').append(new Option('8 Members', '8 Members'));
+        $('#id_Cover').append(new Option('10 Members', '10 Members'));
+        $("#id_CoverAmount").val('');
+        $("#id_CoverAmount").attr('readonly', true);
+        $('#id_Cover').val('{{ form.Cover.value }}');
+    }
+
+
+
+    $("#id_Cover").change(function(){
+            if($(this).val() == 'Price Per R 1,000'){
+                $("#id_CoverAmount").val('1000');
+                $("#id_CoverAmount").attr('readonly', false);
+            }
+            else{
+                $("#id_CoverAmount").attr('readonly', true);
+                if($(this).val() == 'Option 1: R 5,000'){
+                    $("#id_CoverAmount").val('5000');
+                }
+                if($(this).val() == 'Option 2: R 10,000'){
+                    $("#id_CoverAmount").val('10000');
+                }
+            }
+        });
+
+ </script>
+
  {% endblock %}
