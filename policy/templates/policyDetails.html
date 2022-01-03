@@ -71,16 +71,7 @@
                                             <th>View</th>
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Version Number</th>
-                                            <th>Effective Date From</th>
-                                            <th>Effective Date To</th>
-                                            <th>Endorsement Type</th>
-                                            <th>Status</th>
-                                            <th>View</th>
-                                        </tr>
-                                    </tfoot>
+                                   
                                     <tbody>
                                         {% for policy_version in policy_versions %}
                                         <tr>
@@ -133,16 +124,7 @@
                                             <th>View</th>
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Member Type</th>
-                                            <th>Title</th>
-                                            <th>First Name</th>
-                                            <th>Last Name</th>
-                                            <th>Premium</th>
-                                            <th>View</th>
-                                        </tr>
-                                    </tfoot>
+                                    
                                     <tbody>
                                         {% for member in members %}
                                         <tr>
@@ -150,13 +132,13 @@
                                                 {{ member.MemberType }}
                                             </td>
                                             <td>
-                                                {{ member.Title }}
+                                                {{ member.Title  | capfirst }}
                                             </td>
                                             <td>
-                                                {{ member.First_Name }}
+                                                {{ member.First_Name | capfirst }}
                                             </td>
                                             <td>
-                                                {{ member.Last_Name }}
+                                                {{ member.Last_Name | capfirst}}
                                             </td>
                                             <td>
                                                 {{ member.Premium }}

@@ -1,41 +1,56 @@
- {% extends 'base.html' %}
+{% extends 'base.html' %}
 
- {% block content %}
-    <!-- Begin Page Content -->
-    <div class="container-fluid">
+{% block content %}
+<!-- Begin Page Content -->
+<div class="container-fluid">
 
-        <!-- Page Heading -->
-        <h1 class="h3 mb-2 text-gray-800">Clients</h1>
-
+    <!-- Page Heading -->
+    <!-- <h1 class="h3 mb-2 text-gray-800">Clients</h1>-->
+    <div class="row">
         <div class="col-xl-8">
             <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">Client Information</h6>
-            </div>
-            <div class="card-body">
-                <form action="" method="POST">
-                    {% csrf_token %}
-                    {% for field in form %}
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Client Information</h6>
+                </div>
+                <div class="card-body">
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        {% for field in form %}
                         <div class="form-group">
                             <label class="small mb-1" for="{{ field.id_for_label }}">{{ field.label}}</label>
                             {{ field }}
-                          {% for error in field.errors %}
-                              <div class="alert alert-danger">
-                                   <strong>{{ error|escape }}</strong>
-                              </div>
+                            {% for error in field.errors %}
+                            <div class="alert alert-danger">
+                                <strong>{{ error|escape }}</strong>
+                            </div>
                             {% endfor %}
                         </div>
-                    {% endfor %}
-                    <button class="btn btn-primary" type="submit">Save changes</button>
-                    {% if clientId != none %}
-                    <a id="DeleteClient" href="/clients/delete/{{clientId}}" class="btn btn-primary btn-danger" data-toggle="modal" data-target="#ClientDeleteModal" >
-                        Delete
-                    </a>
-                    {% endif %}
-                </form>
+                        {% endfor %}
+                        <button class="btn btn-primary" type="submit">Save changes</button>
+                        {% if clientId != none %}
+                        <a id="DeleteClient" href="/clients/delete/{{clientId}}" class="btn btn-primary btn-danger"
+                            data-toggle="modal" data-target="#ClientDeleteModal">
+                            Delete
+                        </a>
+                        {% endif %}
+                    </form>
+                </div>
             </div>
         </div>
+
+        <div class="col-xl-4">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Documentation</h6>
+                </div>
+          
+            <div class="card-body">
+                User attachements here...
+            </div>
+        </div>
+
         </div>
     </div>
-    <!-- /.container-fluid -->
- {% endblock %}
+</div>
+<!-- /.container-fluid -->
+{% endblock %}

@@ -19,6 +19,7 @@
                                 <th>Product</th>
                                 <th>Cover</th>
                                 <th>Status</th>
+                                <th>Created</th>
                                 <th>View</th>
                             </tr>
                         </thead>
@@ -29,6 +30,7 @@
                                 <th>Product</th>
                                 <th>Cover</th>
                                 <th>Status</th>
+                                <th>Created</th>
                                 <th>View</th>
                             </tr>
                         </tfoot>
@@ -36,10 +38,10 @@
                             {% for policy in policies %}
                             <tr>
                                 <td>
-                                    {{ policy.Number}}
+                                    <a href="/policy/policy_details/{{policy.id}}">{{ policy.Number}}</a> 
                                 </td>
                                 <td>
-                                    {{policy.First_Name}} {{policy.Last_Name}}
+                                    {{policy.First_Name | capfirst}} {{policy.Last_Name | capfirst}}
                                 </td>
                                 <td>
                                     {{ policy.Name}}
@@ -49,6 +51,9 @@
                                 </td>
                                 <td>
                                     {{ policy.Status}}
+                                </td>
+                                <td>
+                                    {{ policy.DateAdded | timesince}} ago
                                 </td>
                                 <td>
                                     <a href="/policy/policy_details/{{policy.id}}" class="btn btn-info btn-circle btn-sm">

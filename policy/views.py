@@ -14,6 +14,7 @@ from dateutil.relativedelta import relativedelta
 def index(request):
     policy_version_view = PolicyVersion.objects.raw('SELECT "policy_policy"."Number", "clients_client"."First_Name", '
                                                     '"clients_client"."Last_Name", "products_product"."Name", '
+                                                    '"policy_policyversion"."DateAdded", '
                                                     '"policy_policyversion"."Cover", '
                                                     '"policy_policyversion"."Status", "policy_policyversion"."id" '
                                                     'FROM "policy_policyversion" '

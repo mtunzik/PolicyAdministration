@@ -5,6 +5,7 @@ from .forms import RegisterUser
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from django.contrib import auth
 
 
 def login_page(request):
@@ -25,12 +26,13 @@ def login_page(request):
             messages.info(request, 'Username or Password does not exist')
 
     context = {}
-    print('It comes here')
+    #print('It comes here')
     return render(request, 'login.html', context)
 
 
 def logout_user(request):
-    logout(request)
+    #logout(request)
+    auth.logout(request)
     return redirect('../authentication/')
 
 
@@ -55,3 +57,7 @@ def register(request):
 
 def forgot_password(request):
     return render(request, 'forgot-password.html')
+
+
+def manage_profile(reqest):
+    return render(reqest, 'profile.html')

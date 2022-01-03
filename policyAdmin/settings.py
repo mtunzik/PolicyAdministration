@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-7c)0&o9ok$=iq@%ixou%j*e^(s-5^t5)(e+g*rner=n$+v^l@='
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['aluyikuhla.dedicated.co.za','*']
 
@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'products.apps.ProductsConfig',
     'policy.apps.PolicyConfig',
     'accounts.apps.AccountsConfig',
-    'authentication.apps.AuthenticationConfig'
+    'authentication.apps.AuthenticationConfig',
+    'userprofile.apps.UserprofileConfig',
 ]
 
 MIDDLEWARE = [
@@ -74,7 +75,9 @@ TEMPLATES = [
     },
 ]
 
-STATICFILES_DIRS = []
+STATICFILES_DIRS = [
+    BASE_DIR / "static"
+]
 
 WSGI_APPLICATION = 'policyAdmin.wsgi.application'
 
@@ -85,12 +88,10 @@ WSGI_APPLICATION = 'policyAdmin.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'policyadmin',
-        'HOST': 'localhost'
+        'NAME': 'SmartPolicy',
+        'HOST': 'localhost',
         'USER': 'aluyi',
         'PASSWORD': 'Aluyi@123#:)',
-
-
     }
 }
 
@@ -132,7 +133,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+#STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
