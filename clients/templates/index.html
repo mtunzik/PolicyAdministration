@@ -1,5 +1,4 @@
- {% extends 'base.html' %}
-
+{% extends 'layout/master.html' %}
  {% block content %}
     <!-- Begin Page Content -->
     <div class="container-fluid">
@@ -23,7 +22,6 @@
                                 <th>DoB</th>
                                 <th>Contact Number</th>
                                 <th>Gender</th>
-                           
                                 <th>View</th>
                             </tr>
                         </thead>
@@ -52,7 +50,6 @@
                                 <td>
                                     {{ client.Gender}}
                                 </td>
-            
                                 <td>
                                     <a href="/clients/edit/{{client.id}}" class="btn btn-info btn-circle btn-sm">
                                         <i class="fas fa-info-circle"></i>

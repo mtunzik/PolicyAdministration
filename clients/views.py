@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User
+from django.db import models
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
@@ -10,6 +11,7 @@ from datetime import datetime
 @login_required(login_url='../authentication')
 def index(request):
     clients = Client.objects.filter(IsDeleted=False)
+    #users = User.objects.filter(is_active=True)
     context = {'clients': clients}
     return render(request, 'index.html', context)
 

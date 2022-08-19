@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.fields.related import ManyToManyField
 from clients.models import Client
 from products.models import Product, ProductRates
 from datetime import datetime
@@ -86,6 +87,7 @@ class PolicyMembers(models.Model):
     CoverAmount = models.DecimalField(max_digits=8, decimal_places=2, null=True)
     Premium = models.DecimalField(max_digits=8, decimal_places=2)
     DateAdded = models.DateTimeField(default=timezone.now, blank=False)
+   
 
 
 class PolicyLedger(models.Model):
@@ -93,6 +95,7 @@ class PolicyLedger(models.Model):
     TransactionDate = models.DateField(null=False)
     CollectionDate = models.DateField(null=False)
     PolicyVersion = models.ForeignKey('PolicyVersion', on_delete=models.CASCADE)
+    
 
 
 

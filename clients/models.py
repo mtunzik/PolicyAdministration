@@ -1,6 +1,7 @@
 from datetime import datetime
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.fields.related import ManyToManyField, OneToOneField
 
 
 class Client(models.Model):
@@ -28,6 +29,9 @@ class Client(models.Model):
     CreatedBy = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='client_created')
     DateUpdated = models.DateTimeField(default=datetime.now, blank=True)
     UpdatedBy = models.ForeignKey(User, on_delete=models.CASCADE, null=True, related_name='client_updated')
+   
+   # client_created = models.ManyToManyField(User)
+    
 
     def __str__(self):
         return self.First_Name + ' ' + self.Last_Name
