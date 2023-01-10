@@ -59,5 +59,9 @@ def forgot_password(request):
     return render(request, 'forgot-password.html')
 
 
-def manage_profile(reqest):
-    return render(reqest, 'profile.html')
+def manage_profile(request):
+    return render(request, 'profile.html')
+
+
+
+

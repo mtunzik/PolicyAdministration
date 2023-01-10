@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'policy.apps.PolicyConfig',
     'accounts.apps.AccountsConfig',
     'authentication.apps.AuthenticationConfig',
-    'userprofile.apps.UserprofileConfig',
+    'userprofile.apps.UserprofileConfig'
 ]
 
 MIDDLEWARE = [
@@ -70,6 +70,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'policyAdmin.context_processors.breadcrumbs'
             ],
         },
     },
@@ -113,6 +114,7 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
 
 
 # Internationalization
